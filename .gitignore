@@ -1,0 +1,32 @@
+# ── Dependencies ──────────────────────────
+node_modules
+
+# ── Environment variables ─────────────────
+.env
+.env.local
+.env.development
+.env.production
+.env.*.local
+
+# ── Build output ──────────────────────────
+dist
+build
+
+# ── Uploads (local avatar fallback) ───────
+public/avatars
+uploads
+
+# ── Logs ──────────────────────────────────
+logs
+*.log
+npm-debug.log*
+
+# ── Editor ────────────────────────────────
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+Thumbs.db
+
+# ── TypeScript ────────────────────────────
+*.tsbuildinfo
