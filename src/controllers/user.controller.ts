@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { AuthRequest } from "../middleware/auth";
 import User from "../models/User";
-import cloudinary from "../config/cloudinary";
+import { getCloudinary } from "../config/cloudinary";
 import fs from "fs";
 import path from "path";
 
@@ -30,6 +30,7 @@ export const uploadAvatar = async (req: AuthRequest, res: Response): Promise<voi
 
     if (isCloudinaryReady()) {
       // ── Upload to Cloudinary ──
+      const cloudinary = getCloudinary();
       const result = await cloudinary.uploader.upload(req.file.path, {
         folder: "projecthub/avatars",
         width: 200,

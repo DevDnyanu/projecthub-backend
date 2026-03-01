@@ -59,10 +59,12 @@ export const createOrder = async (req: AuthRequest, res: Response): Promise<void
     const razorpay = getRazorpay();
     const amountInPaise = Math.round(acceptedBid.amount * 100);
 
+    console.log(`[Payment] Creating order | amount: ₹${acceptedBid.amount} (${amountInPaise} paise) | key: ${process.env.RAZORPAY_KEY_ID}`);
+
     const order = await razorpay.orders.create({
       amount: amountInPaise,
       currency: "INR",
-      receipt: `p_${projectId.toString().slice(-12)}_${Date.now().toString().slice(-8)}`,
+      receipt: `rcpt_${Date.now().toString().slice(-10)}`,
       notes: {
         projectId: projectId.toString(),
         bidId: acceptedBid._id.toString(),
@@ -70,6 +72,8 @@ export const createOrder = async (req: AuthRequest, res: Response): Promise<void
         freelancerId: acceptedBid.bidder.toString(),
       },
     });
+
+    console.log(`[Payment] Order created: ${order.id} | status: ${order.status}`);
 
     res.json({
       orderId: order.id,
